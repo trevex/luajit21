@@ -344,10 +344,16 @@ SET(DEPS
 ## COMPILE
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR} dynasm src)
 
+if(WIN32) # shared library on windows
+    set(LIBRARY_TYPE SHARED)
+else() # on all other platforms just link everything into the executable
+    set(LIBRARY_TYPE STATIC)
+endif()
+
 IF(WITH_AMALG)
-  add_library(libluajit SHARED src/ljamalg.c ${DEPS} )
+  add_library(libluajit LIBRARY_TYPE src/ljamalg.c ${DEPS} )
 ELSE()
-  add_library(libluajit SHARED ${SRC_LJCORE} ${DEPS} )
+  add_library(libluajit LIBRARY_TYPE ${SRC_LJCORE} ${DEPS} )
 ENDIF()
 
 target_link_libraries (libluajit ${LIBS} )
