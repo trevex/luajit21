@@ -351,9 +351,9 @@ else() # on all other platforms just link everything into the executable
 endif()
 
 IF(WITH_AMALG)
-  add_library(libluajit LIBRARY_TYPE src/ljamalg.c ${DEPS} )
+  add_library(libluajit ${LIBRARY_TYPE} src/ljamalg.c ${DEPS} )
 ELSE()
-  add_library(libluajit LIBRARY_TYPE ${SRC_LJCORE} ${DEPS} )
+  add_library(libluajit ${LIBRARY_TYPE} ${SRC_LJCORE} ${DEPS} )
 ENDIF()
 
 target_link_libraries (libluajit ${LIBS} )
